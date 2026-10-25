@@ -1,659 +1,548 @@
 <!DOCTYPE html>
 <html lang="ar" dir="rtl">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>مشروع اللغة العربية - السمكات الثلاث | أحمد رامي</title>
-  <!-- Google Font Cairo -->
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;800;900&display=swap" rel="stylesheet">
-  <!-- FontAwesome Icons -->
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
-  
-  <style>
-    * {
-      box-sizing: border-box;
-      margin: 0;
-      padding: 0;
-      user-select: none;
-    }
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>رواية السمكات الثلاث - أحمد رامي</title>
+    <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;500;700;800;900&display=swap" rel="stylesheet">
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: 'Tajawal', sans-serif;
+            user-select: none;
+        }
 
-    body {
-      font-family: 'Cairo', sans-serif;
-      background: radial-gradient(circle at 50% 20%, #1e3a8a 0%, #0f172a 70%, #020617 100%);
-      color: #f8fafc;
-      height: 100vh;
-      width: 100vw;
-      overflow: hidden;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-    }
+        body {
+            background: #090d16;
+            color: #f1f5f9;
+            height: 100vh;
+            width: 100vw;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            overflow: hidden;
+            background-image: 
+                radial-gradient(circle at 15% 15%, rgba(14, 165, 233, 0.15) 0%, transparent 40%),
+                radial-gradient(circle at 85% 85%, rgba(59, 130, 246, 0.12) 0%, transparent 40%);
+        }
 
-    /* Outer Presentation Wrapper */
-    .app-viewport {
-      width: 96vw;
-      max-width: 1280px;
-      height: 90vh;
-      max-height: 720px;
-      background: rgba(15, 23, 42, 0.75);
-      backdrop-filter: blur(16px);
-      -webkit-backdrop-filter: blur(16px);
-      border: 1px solid rgba(255, 255, 255, 0.12);
-      border-radius: 24px;
-      box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.7), 0 0 30px rgba(56, 189, 248, 0.15);
-      display: flex;
-      flex-direction: column;
-      position: relative;
-      overflow: hidden;
-    }
+        .presentation-card {
+            width: 92vw;
+            max-width: 1100px;
+            height: 90vh;
+            max-height: 700px;
+            background: rgba(15, 23, 42, 0.75);
+            backdrop-filter: blur(16px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 24px;
+            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
+            display: flex;
+            flex-direction: column;
+            position: relative;
+            overflow: hidden;
+        }
 
-    /* Top Progress Bar */
-    .progress-bar-container {
-      width: 100%;
-      height: 6px;
-      background: rgba(255, 255, 255, 0.08);
-      position: relative;
-    }
-    .progress-bar-fill {
-      height: 100%;
-      width: 14.28%;
-      background: linear-gradient(90deg, #38bdf8, #818cf8);
-      transition: width 0.4s ease;
-      box-shadow: 0 0 12px #38bdf8;
-    }
+        .progress-bar-bg {
+            width: 100%;
+            height: 5px;
+            background: rgba(255, 255, 255, 0.05);
+        }
 
-    /* Top Navigation Header */
-    .top-header {
-      padding: 14px 28px;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      border-bottom: 1px solid rgba(255, 255, 255, 0.08);
-      background: rgba(15, 23, 42, 0.4);
-    }
-    .school-badge {
-      display: flex;
-      align-items: center;
-      gap: 10px;
-      font-size: 0.95rem;
-      font-weight: 700;
-      color: #38bdf8;
-    }
-    .student-badge {
-      background: rgba(56, 189, 248, 0.12);
-      border: 1px solid rgba(56, 189, 248, 0.3);
-      padding: 4px 14px;
-      border-radius: 20px;
-      font-size: 0.9rem;
-      color: #e0f2fe;
-      font-weight: 700;
-    }
+        .progress-bar-fill {
+            height: 100%;
+            width: 14.28%;
+            background: linear-gradient(90deg, #38bdf8, #818cf8);
+            transition: width 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+        }
 
-    /* Slide Main Stage */
-    .stage {
-      flex: 1;
-      position: relative;
-      overflow: hidden;
-      display: flex;
-      padding: 24px 36px;
-    }
+        .top-bar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 20px 32px 10px 32px;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+        }
 
-    .slide {
-      position: absolute;
-      inset: 24px 36px;
-      opacity: 0;
-      visibility: hidden;
-      transform: scale(0.97) translateY(10px);
-      transition: opacity 0.4s ease, transform 0.4s ease, visibility 0.4s;
-      display: flex;
-      flex-direction: column;
-      justify-content: space-between;
-    }
-    .slide.active {
-      opacity: 1;
-      visibility: visible;
-      transform: scale(1) translateY(0);
-    }
+        .school-tag {
+            font-size: 0.95rem;
+            color: #38bdf8;
+            font-weight: 700;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
 
-    /* Section Header within slide */
-    .slide-header {
-      margin-bottom: 16px;
-    }
-    .slide-tag {
-      font-size: 0.85rem;
-      font-weight: 800;
-      color: #38bdf8;
-      text-transform: uppercase;
-      letter-spacing: 1px;
-      display: inline-block;
-      margin-bottom: 2px;
-    }
-    .slide-title {
-      font-size: 1.85rem;
-      font-weight: 900;
-      color: #ffffff;
-      line-height: 1.2;
-    }
+        .student-badge {
+            background: rgba(56, 189, 248, 0.1);
+            border: 1px solid rgba(56, 189, 248, 0.25);
+            color: #7dd3fc;
+            padding: 6px 16px;
+            border-radius: 20px;
+            font-size: 0.9rem;
+            font-weight: 700;
+        }
 
-    /* Content Cards Grid Layouts */
-    .content-area {
-      flex: 1;
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-      gap: 16px;
-    }
+        .slides-viewport {
+            flex: 1;
+            padding: 24px 36px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+        }
 
-    .glass-card {
-      background: rgba(255, 255, 255, 0.05);
-      border: 1px solid rgba(255, 255, 255, 0.09);
-      border-radius: 16px;
-      padding: 18px 22px;
-      backdrop-filter: blur(8px);
-      transition: all 0.3s ease;
-    }
-    .glass-card:hover {
-      background: rgba(255, 255, 255, 0.08);
-      border-color: rgba(56, 189, 248, 0.4);
-    }
+        .slide {
+            display: none;
+            width: 100%;
+            height: 100%;
+            flex-direction: column;
+            justify-content: center;
+            animation: fadeIn 0.4s ease-out forwards;
+        }
 
-    /* Slide 1: Hero Cover */
-    .hero-center {
-      text-align: center;
-      align-items: center;
-      justify-content: center;
-      height: 100%;
-    }
-    .main-title {
-      font-size: 2.8rem;
-      font-weight: 900;
-      background: linear-gradient(135deg, #ffffff 30%, #38bdf8 100%);
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-      margin-bottom: 10px;
-    }
-    .hero-sub {
-      font-size: 1.35rem;
-      color: #94a3b8;
-      margin-bottom: 28px;
-    }
-    .meta-box {
-      display: inline-flex;
-      gap: 20px;
-      background: rgba(255, 255, 255, 0.06);
-      padding: 12px 28px;
-      border-radius: 50px;
-      border: 1px solid rgba(255, 255, 255, 0.15);
-    }
-    .meta-item {
-      display: flex;
-      align-items: center;
-      gap: 8px;
-      font-size: 1.05rem;
-      color: #38bdf8;
-      font-weight: 700;
-    }
+        .slide.active {
+            display: flex;
+        }
 
-    /* Slide 2: Reading Excerpt */
-    .quote-card {
-      background: linear-gradient(135deg, rgba(56, 189, 248, 0.1), rgba(30, 58, 138, 0.2));
-      border-right: 5px solid #38bdf8;
-      padding: 22px 28px;
-      border-radius: 16px;
-    }
-    .quote-text {
-      font-size: 1.3rem;
-      line-height: 1.9;
-      color: #f1f5f9;
-      text-align: justify;
-    }
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(8px) scale(0.99); }
+            to { opacity: 1; transform: translateY(0) scale(1); }
+        }
 
-    /* Grid Layouts for Characters / Problems */
-    .cards-grid-3 {
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 16px;
-    }
-    .cards-grid-2 {
-      display: grid;
-      grid-template-columns: repeat(2, 1fr);
-      gap: 16px;
-    }
+        .slide-title {
+            font-size: 2rem;
+            font-weight: 900;
+            color: #ffffff;
+            margin-bottom: 20px;
+            text-align: center;
+        }
 
-    .char-card {
-      display: flex;
-      flex-direction: column;
-      align-items: flex-start;
-      gap: 8px;
-    }
-    .char-header {
-      display: flex;
-      align-items: center;
-      gap: 10px;
-    }
-    .char-icon {
-      width: 38px;
-      height: 38px;
-      border-radius: 10px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 1.1rem;
-    }
-    .char-title {
-      font-size: 1.15rem;
-      font-weight: 800;
-      color: #ffffff;
-    }
-    .char-desc {
-      font-size: 0.95rem;
-      color: #cbd5e1;
-      line-height: 1.5;
-    }
+        /* Hero Slide */
+        .hero-slide {
+            text-align: center;
+            align-items: center;
+        }
 
-    /* Timeline Horizontal Steps */
-    .timeline-container {
-      display: flex;
-      gap: 14px;
-    }
-    .step-card {
-      flex: 1;
-      position: relative;
-      display: flex;
-      flex-direction: column;
-      gap: 8px;
-    }
-    .step-num {
-      width: 30px;
-      height: 30px;
-      background: #38bdf8;
-      color: #0f172a;
-      font-weight: 900;
-      border-radius: 50%;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 0.95rem;
-    }
+        .hero-subtitle {
+            color: #38bdf8;
+            font-size: 1.1rem;
+            font-weight: 700;
+            margin-bottom: 8px;
+            text-transform: uppercase;
+        }
 
-    /* Q&A Accordion Style */
-    .qa-grid {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 12px;
-    }
-    .qa-card {
-      padding: 12px 16px;
-    }
-    .qa-q {
-      font-size: 1rem;
-      font-weight: 800;
-      color: #38bdf8;
-      margin-bottom: 4px;
-      display: flex;
-      align-items: center;
-      gap: 8px;
-    }
-    .qa-a {
-      font-size: 0.9rem;
-      color: #e2e8f0;
-      line-height: 1.4;
-    }
+        .hero-title {
+            font-size: 3.2rem;
+            font-weight: 900;
+            background: linear-gradient(135deg, #ffffff 0%, #cbd5e1 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            margin-bottom: 12px;
+        }
 
-    /* Bottom Navigation Bar */
-    .bottom-bar {
-      padding: 14px 28px;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      border-top: 1px solid rgba(255, 255, 255, 0.08);
-      background: rgba(15, 23, 42, 0.6);
-    }
-    .nav-btn {
-      background: rgba(255, 255, 255, 0.08);
-      border: 1px solid rgba(255, 255, 255, 0.15);
-      color: #ffffff;
-      padding: 8px 22px;
-      border-radius: 12px;
-      font-size: 0.95rem;
-      font-weight: 700;
-      cursor: pointer;
-      display: flex;
-      align-items: center;
-      gap: 8px;
-      transition: all 0.2s ease;
-      font-family: 'Cairo', sans-serif;
-    }
-    .nav-btn:hover:not(:disabled) {
-      background: #38bdf8;
-      color: #0f172a;
-      border-color: #38bdf8;
-      box-shadow: 0 0 15px rgba(56, 189, 248, 0.4);
-    }
-    .nav-btn:disabled {
-      opacity: 0.3;
-      cursor: not-allowed;
-    }
-    .slide-indicator {
-      font-size: 0.95rem;
-      font-weight: 700;
-      color: #94a3b8;
-    }
-  </style>
+        .hero-author {
+            color: #94a3b8;
+            font-size: 1.2rem;
+            margin-bottom: 32px;
+        }
+
+        .hero-meta {
+            display: flex;
+            gap: 16px;
+            justify-content: center;
+        }
+
+        .meta-card {
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            padding: 12px 24px;
+            border-radius: 14px;
+            color: #e2e8f0;
+            font-size: 1rem;
+            font-weight: 600;
+        }
+
+        /* Summary Slide */
+        .quote-box {
+            background: rgba(15, 23, 42, 0.6);
+            border: 1px solid rgba(56, 189, 248, 0.3);
+            border-right: 5px solid #38bdf8;
+            border-radius: 16px;
+            padding: 32px 36px;
+            font-size: 1.35rem;
+            line-height: 2.1;
+            color: #f8fafc;
+            text-align: justify;
+            position: relative;
+            box-shadow: inset 0 2px 4px rgba(0,0,0,0.2);
+        }
+
+        /* Cards Grid */
+        .grid-3 {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 16px;
+            margin-bottom: 16px;
+        }
+
+        .character-card {
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            border-radius: 16px;
+            padding: 20px;
+            text-align: center;
+        }
+
+        .character-card.green { border-top: 4px solid #10b981; }
+        .character-card.yellow { border-top: 4px solid #f59e0b; }
+        .character-card.red { border-top: 4px solid #ef4444; }
+
+        .card-name {
+            font-size: 1.3rem;
+            font-weight: 800;
+            margin-bottom: 8px;
+            color: #ffffff;
+        }
+
+        .card-desc {
+            font-size: 0.98rem;
+            color: #94a3b8;
+            line-height: 1.5;
+        }
+
+        .problem-card {
+            background: rgba(239, 68, 68, 0.08);
+            border: 1px solid rgba(239, 68, 68, 0.25);
+            border-radius: 16px;
+            padding: 18px 24px;
+            color: #fca5a5;
+            font-size: 1.1rem;
+            line-height: 1.6;
+        }
+
+        .problem-title {
+            font-weight: 800;
+            color: #f87171;
+            margin-bottom: 4px;
+            font-size: 1.15rem;
+        }
+
+        /* Timeline Layout */
+        .events-list {
+            display: flex;
+            flex-direction: column;
+            gap: 14px;
+        }
+
+        .event-item {
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            border-radius: 14px;
+            padding: 16px 20px;
+            display: flex;
+            align-items: center;
+            gap: 16px;
+        }
+
+        .event-num {
+            background: rgba(56, 189, 248, 0.15);
+            color: #38bdf8;
+            width: 38px;
+            height: 38px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 800;
+            font-size: 1.1rem;
+            flex-shrink: 0;
+        }
+
+        .event-text {
+            font-size: 1.1rem;
+            color: #e2e8f0;
+            line-height: 1.5;
+        }
+
+        /* QA Grid */
+        .qa-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 16px;
+        }
+
+        .qa-card {
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            border-radius: 14px;
+            padding: 18px 20px;
+        }
+
+        .qa-q {
+            color: #38bdf8;
+            font-size: 1.05rem;
+            font-weight: 800;
+            margin-bottom: 6px;
+        }
+
+        .qa-a {
+            color: #cbd5e1;
+            font-size: 0.98rem;
+            line-height: 1.5;
+        }
+
+        /* Values Grid */
+        .values-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 16px;
+        }
+
+        .value-card {
+            background: rgba(16, 185, 129, 0.06);
+            border: 1px solid rgba(16, 185, 129, 0.2);
+            border-radius: 14px;
+            padding: 18px 20px;
+            color: #a7f3d0;
+            font-size: 1.05rem;
+            line-height: 1.5;
+            font-weight: 600;
+        }
+
+        .bottom-bar {
+            padding: 12px 32px 14px 32px;
+            border-top: 1px solid rgba(255, 255, 255, 0.05);
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+
+        .nav-controls {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .nav-btn {
+            background: rgba(255, 255, 255, 0.06);
+            border: 1px solid rgba(255, 255, 255, 0.12);
+            color: #ffffff;
+            padding: 8px 22px;
+            border-radius: 12px;
+            font-size: 0.95rem;
+            font-weight: 700;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        .nav-btn:hover:not(:disabled) {
+            background: #38bdf8;
+            color: #0f172a;
+            border-color: #38bdf8;
+        }
+
+        .nav-btn:disabled {
+            opacity: 0.3;
+            cursor: not-allowed;
+        }
+
+        .slide-counter {
+            color: #64748b;
+            font-size: 0.9rem;
+            font-weight: 700;
+        }
+
+        .copyright-text {
+            text-align: center;
+            font-size: 0.75rem;
+            color: #64748b;
+            font-family: Arial, sans-serif;
+            letter-spacing: 0.5px;
+            direction: ltr;
+        }
+    </style>
 </head>
 <body>
 
-  <div class="app-viewport">
-    <!-- Top Progress Bar -->
-    <div class="progress-bar-container">
-      <div class="progress-bar-fill" id="progressFill"></div>
+    <div class="presentation-card">
+        <div class="progress-bar-bg">
+            <div class="progress-bar-fill" id="progressFill"></div>
+        </div>
+
+        <div class="top-bar">
+            <div class="school-tag">
+                مدرسة مصر الدولية | قسم اللغة العربية
+            </div>
+            <div class="student-badge">
+                إعداد الطالب: أحمد رامي
+            </div>
+        </div>
+
+        <div class="slides-viewport">
+            <!-- Slide 1: Cover -->
+            <div class="slide hero-slide active">
+                <div class="hero-subtitle">مشروع قراءة ورواية</div>
+                <h1 class="hero-title">رواية "السمكات الثلاث"</h1>
+                <div class="hero-author">من كتاب «كليلة ودمنة» للمفكر ابن المقفع</div>
+                <div class="hero-meta">
+                    <div class="meta-card">الطلاب: أحمد رامي</div>
+                    <div class="meta-card">الصف الأول الإعدادي</div>
+                </div>
+            </div>
+
+            <!-- Slide 2: Summary -->
+            <div class="slide">
+                <h2 class="slide-title">ملخص الرواية</h2>
+                <div class="quote-box">
+                    تدور أحداث القصة حول ثلاث سمكات عاشت بسعادة في غدير ماء هادئ، حتى جاء صيادان وعزما على صيدهن. اختلفت ردود أفعالهن تجاه الخطر؛ فسارعت الأكثر حزماً بالهرب ليلاً إلى النهر ونجت، بينما تأخرت السمكة الذكية ولجأت لحيلة ادعاء الموت لتفلت من الصيادين، في حين استسلمت السمكة العاجزة للكسل والتردد حتى وقعت في الشباك وهلكت.
+                </div>
+            </div>
+
+            <!-- Slide 3: Characters & Problem -->
+            <div class="slide">
+                <h2 class="slide-title">الشخصيات والمشكلة الرئيسة</h2>
+                <div class="grid-3">
+                    <div class="character-card green">
+                        <div class="card-name">السمكة (أكيس منها)</div>
+                        <div class="card-desc">الأكثر حزماً وتدبيراً: هربت فوراً ليلاً إلى النهر الآمن قبل وصول الصيادين.</div>
+                    </div>
+                    <div class="character-card yellow">
+                        <div class="card-name">السمكة (كيسة)</div>
+                        <div class="card-desc">العاقلة الذكية: تأخرت قليلاً لكنها ابتكرت حيلة ادعاء الموت لتنجو بروحها.</div>
+                    </div>
+                    <div class="character-card red">
+                        <div class="card-name">السمكة (عاجزة)</div>
+                        <div class="card-desc">الكسولة المهملة: لم تتخذ أي قرار وظلت تسوف حتى وقعت في الشباك.</div>
+                    </div>
+                </div>
+                <div class="problem-card">
+                    <div class="problem-title">المشكلة الأساسية:</div>
+                    مرور صيادين بالغدير المعزول وعزمهما على العودة في الصباح الباكر لصيد جميع الأسماك الموجودة فيه.
+                </div>
+            </div>
+
+            <!-- Slide 4: Events Development -->
+            <div class="slide">
+                <h2 class="slide-title">تطور الأحداث</h2>
+                <div class="events-list">
+                    <div class="event-item">
+                        <div class="event-num">١</div>
+                        <div class="event-text">استماع السمكات الثلاث لحديث الصيادين وإدراكهن للخطر المحدق بالغدير.</div>
+                    </div>
+                    <div class="event-item">
+                        <div class="event-num">٢</div>
+                        <div class="event-text">مسارعة السمكة الأكثر حزماً بالخروج من الغدير إلى النهر الكبير في نفس الليلة.</div>
+                    </div>
+                    <div class="event-item">
+                        <div class="event-num">٣</div>
+                        <div class="event-text">مفاجأة السمكة الثانية بانسداد المنفذ صباحاً، ولجوؤها لحيلة التظاهر بالوفاة للقفز للنهر.</div>
+                    </div>
+                    <div class="event-item">
+                        <div class="event-num">٤</div>
+                        <div class="event-text">استسلام السمكة الثالثة وترددها حتى ألقى الصيادان الشباك واصطاداهما.</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Slide 5: Ending -->
+            <div class="slide">
+                <h2 class="slide-title">نهاية القصة</h2>
+                <div class="qa-grid" style="grid-template-columns: 1fr 1fr; gap: 20px;">
+                    <div class="qa-card" style="border-top: 4px solid #10b981; background: rgba(16, 185, 129, 0.05);">
+                        <div class="qa-q" style="color: #34d399; font-size: 1.3rem;">نجاة العاقلات</div>
+                        <div class="qa-a" style="font-size: 1.1rem; line-height: 1.7;">تمكنت السمكتان "كيسة" و"أكيس منها" من النجاة والوصول إلى مياه النهر الواسعة والآمنة بفضل سرعة التصرف، والتفكير الذكي، وعدم الاستسلام للخوف.</div>
+                    </div>
+                    <div class="qa-card" style="border-top: 4px solid #ef4444; background: rgba(239, 68, 68, 0.05);">
+                        <div class="qa-q" style="color: #f87171; font-size: 1.3rem;">هلاك الكسولة</div>
+                        <div class="qa-a" style="font-size: 1.1rem; line-height: 1.7;">وقعت السمكة الثالثة "عاجزة" فريسة سهلة في شباك الصيادين، بسبب الكسل والتأجيل وعدم الأخذ بأسباب النجاة في الوقت المناسب.</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Slide 6: Analysis Questions -->
+            <div class="slide">
+                <h2 class="slide-title">تحليل العرض والأسئلة</h2>
+                <div class="qa-grid">
+                    <div class="qa-card">
+                        <div class="qa-q">من الشخصيات الرئيسة؟</div>
+                        <div class="qa-a">الصيادان، والسمكات الثلاث (كيسة، أكيس منها، عاجزة).</div>
+                    </div>
+                    <div class="qa-card">
+                        <div class="qa-q">ما المشكلة التي واجهتهم؟</div>
+                        <div class="qa-a">خطر الصيد الذي هدد حياة السمكات بعد اكتشاف الغدير.</div>
+                    </div>
+                    <div class="qa-card">
+                        <div class="qa-q">كيف تطورت الأحداث؟</div>
+                        <div class="qa-a">بتفاوت ردود أفعال السمكات بين الحزم المبكر، والذكاء الطارئ، والكسل.</div>
+                    </div>
+                    <div class="qa-card">
+                        <div class="qa-q">ما النهاية؟</div>
+                        <div class="qa-a">نجاة السمكتين الذكيتين وهلاك السمكة العاجزة في الشباك.</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Slide 7: Moral Values -->
+            <div class="slide">
+                <h2 class="slide-title">القيم والدروس المستفادة</h2>
+                <div class="values-grid">
+                    <div class="value-card">✓ الاستعداد للأمر قبل وقوعه، وعدم الإهمال في مواجهة أي خطر متوقع.</div>
+                    <div class="value-card">✓ استخدام العقل والحيلة الذكية وسرعة البديهة في الأزمات.</div>
+                    <div class="value-card">✓ التردد والكسل والتأجيل يؤدي دائماً إلى العواقب الوخيمة.</div>
+                    <div class="value-card">✓ الإرادة القوية والعزيمة الصادقة هما السبيل الوحيد للنجاة.</div>
+                </div>
+            </div>
+        </div>
+
+        <div class="bottom-bar">
+            <div class="nav-controls">
+                <button class="nav-btn" id="prevBtn" onclick="changeSlide(-1)" disabled>السابق</button>
+                <div class="slide-counter" id="slideCounter">الشريحة 1 من 7</div>
+                <button class="nav-btn" id="nextBtn" onclick="changeSlide(1)">التالي</button>
+            </div>
+            <div class="copyright-text">
+                © 2026 Ahmed AI Technology. Designed & Engineered by Ahmed Ramy.
+            </div>
+        </div>
     </div>
 
-    <!-- Header -->
-    <header class="top-header">
-      <div class="school-badge">
-        <i class="fa-solid fa-graduation-cap"></i>
-        <span>مدرسة مصر الدولية | قسم اللغة العربية</span>
-      </div>
-      <div class="student-badge">
-        <i class="fa-solid fa-user-pen" style="margin-left: 6px;"></i>
-        إعداد الطالب: <strong>أحمد رامي</strong>
-      </div>
-    </header>
+    <script>
+        let currentSlide = 0;
+        const slides = document.querySelectorAll('.slide');
+        const totalSlides = slides.length;
+        const prevBtn = document.getElementById('prevBtn');
+        const nextBtn = document.getElementById('nextBtn');
+        const slideCounter = document.getElementById('slideCounter');
+        const progressFill = document.getElementById('progressFill');
 
-    <!-- Stage Area -->
-    <main class="stage">
+        function updateSlide() {
+            slides.forEach((slide, index) => {
+                slide.classList.toggle('active', index === currentSlide);
+            });
+            
+            slideCounter.textContent = `الشريحة ${currentSlide + 1} من ${totalSlides}`;
+            progressFill.style.width = `${((currentSlide + 1) / totalSlides) * 100}%`;
+            
+            prevBtn.disabled = currentSlide === 0;
+            nextBtn.disabled = currentSlide === totalSlides - 1;
+        }
 
-      <!-- SLIDE 1: COVER -->
-      <section class="slide active hero-center" id="slide1">
-        <div>
-          <span class="slide-tag"><i class="fa-solid fa-book-open"></i> مشروع قراءة ورواية (الترم الأول)</span>
-          <h1 class="main-title">رواية "السمكات الثلاث"</h1>
-          <p class="hero-sub">من كتاب «كليلة ودمنة» للمفكر ابن المقفع</p>
-          <div class="meta-box">
-            <div class="meta-item"><i class="fa-solid fa-user"></i> الطالب: أحمد رامي</div>
-            <div class="meta-item"><i class="fa-solid fa-chalkboard-user"></i> الصف الأول الإعدادي</div>
-            <div class="meta-item"><i class="fa-solid fa-star"></i> الدرجة: 15%</div>
-          </div>
-        </div>
-      </section>
+        function changeSlide(direction) {
+            currentSlide += direction;
+            if (currentSlide < 0) currentSlide = 0;
+            if (currentSlide >= totalSlides) currentSlide = totalSlides - 1;
+            updateSlide();
+        }
 
-      <!-- SLIDE 2: READING EXCERPT -->
-      <section class="slide" id="slide2">
-        <div class="slide-header">
-          <span class="slide-tag">المهمة الأولى (5%)</span>
-          <h2 class="slide-title">القراءة الجهرية المحددة</h2>
-        </div>
-        <div class="content-area">
-          <div class="quote-card">
-            <i class="fa-solid fa-quote-right" style="font-size: 1.5rem; color: #38bdf8; margin-bottom: 8px; display: block;"></i>
-            <p class="quote-text">
-              «وَفِي غَدِيرٍ مِنَ الْغُدْرَانِ، الْمُجَاوِرَةِ لِأَحَدِ الْأَنْهَارِ، عَاشَتْ سَمَكَاتٌ ثَلَاثٌ، يَجْمَعُ بَيْنَهُنَّ الْوُدُّ وَالصَّفَاءُ، وَلَا تَسْتَغْنِي إِحْدَاهُنَّ عَنْ صَاحِبَتَيْهَا. وَكَانَتْ حَيَاتُهُنَّ فِي هَذَا الْغَدِيرِ الْمُنْعَزِلِ الْهَادِئِ تَرَفْرَفُ عَلَيْهَا السَّعَادَةُ، وَتَغْمُرُهَا الْبَهْجَةُ وَالْهَنَاءَةُ، فَلَا شَيْءَ يُنَغِّصُ عَلَيْهِنَّ حَيَاتَهُنَّ...»
-            </p>
-          </div>
-          <div class="cards-grid-2">
-            <div class="glass-card" style="display: flex; align-items: center; gap: 12px;">
-              <i class="fa-solid fa-microphone-lines" style="font-size: 1.5rem; color: #38bdf8;"></i>
-              <div>
-                <strong style="color:#ffffff;">أداء القراءة:</strong>
-                <p style="font-size:0.88rem; color:#cbd5e1;">تسجيل صوتي متمثل للمعنى ومراعٍ للضبط النحوي والطلاقة.</p>
-              </div>
-            </div>
-            <div class="glass-card" style="display: flex; align-items: center; gap: 12px;">
-              <i class="fa-solid fa-bullseye" style="font-size: 1.5rem; color: #34d399;"></i>
-              <div>
-                <strong style="color:#ffffff;">الهدف:</strong>
-                <p style="font-size:0.88rem; color:#cbd5e1;">إبراز سلامة النطق والتعبير الصوتي عن مشاعر النص.</p>
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      <!-- SLIDE 3: CHARACTERS & PROBLEM -->
-      <section class="slide" id="slide3">
-        <div class="slide-header">
-          <span class="slide-tag">المهمة الثانية (5%)</span>
-          <h2 class="slide-title">الشخصيات والمشكلة الرئيسة</h2>
-        </div>
-        <div class="content-area">
-          <div class="cards-grid-3">
-            <div class="glass-card char-card">
-              <div class="char-header">
-                <div class="char-icon" style="background: rgba(56, 189, 248, 0.2); color: #38bdf8;"><i class="fa-solid fa-shield-halved"></i></div>
-                <div class="char-title">السمكة (أكيس منها)</div>
-              </div>
-              <div class="char-desc">الأكثر حزماً وتدبيراً؛ هربت فوراً ليلاً إلى النهر الآمن قبل وصول الصيادين.</div>
-            </div>
-
-            <div class="glass-card char-card">
-              <div class="char-header">
-                <div class="char-icon" style="background: rgba(251, 191, 36, 0.2); color: #fbbf24;"><i class="fa-solid fa-lightbulb"></i></div>
-                <div class="char-title">السمكة (كيسة)</div>
-              </div>
-              <div class="char-desc">العاقلة الذكية؛ تأخرت قليلاً لكنها ابتكرت حيلة ادعاء الموت لتنجو بروحها.</div>
-            </div>
-
-            <div class="glass-card char-card">
-              <div class="char-header">
-                <div class="char-icon" style="background: rgba(248, 113, 113, 0.2); color: #f87171;"><i class="fa-solid fa-circle-xmark"></i></div>
-                <div class="char-title">السمكة (عاجزة)</div>
-              </div>
-              <div class="char-desc">الكسولة المهملة؛ لم تتخذ أي قرار وظلت تسوف حتى وقعت في الشباك.</div>
-            </div>
-          </div>
-
-          <!-- Problem Box -->
-          <div class="glass-card" style="border-right: 4px solid #f43f5e; background: rgba(244, 63, 94, 0.08);">
-            <div style="display:flex; align-items:center; gap:10px; margin-bottom:4px;">
-              <i class="fa-solid fa-triangle-exclamation" style="color:#f43f5e;"></i>
-              <strong style="color:#ffffff; font-size:1.05rem;">المشكلة الأساسية:</strong>
-            </div>
-            <p style="font-size:0.92rem; color:#e2e8f0;">مرور صيادين بالغدير المعزول وعزمهما على العودة في الصباح الباكر لصيد جميع الأسماك الموجودة فيه.</p>
-          </div>
-        </div>
-      </section>
-
-      <!-- SLIDE 4: PLOT EVOLUTION -->
-      <section class="slide" id="slide4">
-        <div class="slide-header">
-          <span class="slide-tag">تسلسل الأحداث</span>
-          <h2 class="slide-title">كيف تطورت الأحداث؟</h2>
-        </div>
-        <div class="content-area">
-          <div class="timeline-container">
-            <div class="glass-card step-card">
-              <div class="step-num">1</div>
-              <strong style="color:#ffffff; font-size:1rem;">سماع الخطر</strong>
-              <p style="font-size:0.88rem; color:#cbd5e1;">سمعت السمكات حديث الصيادين وتفطنّ لما سيحدث في الغد.</p>
-            </div>
-
-            <div class="glass-card step-card" style="border-top:3px solid #38bdf8;">
-              <div class="step-num">2</div>
-              <strong style="color:#ffffff; font-size:1rem;">الهروب المباشر</strong>
-              <p style="font-size:0.88rem; color:#cbd5e1;">خرجت (أكيس منها) ليلاً عبر قناة النهر ونجت مبكراً.</p>
-            </div>
-
-            <div class="glass-card step-card" style="border-top:3px solid #fbbf24;">
-              <div class="step-num">3</div>
-              <strong style="color:#ffffff; font-size:1rem;">الحيلة والذكاء</strong>
-              <p style="font-size:0.88rem; color:#cbd5e1;">وجدت (كيسة) الفتحة مسدودة، فادعت الموت ثم قفزت للنهر.</p>
-            </div>
-
-            <div class="glass-card step-card" style="border-top:3px solid #f87171;">
-              <div class="step-num">4</div>
-              <strong style="color:#ffffff; font-size:1rem;">الوقوع في الشباك</strong>
-              <p style="font-size:0.88rem; color:#cbd5e1;">تأخرت (عاجزة) وتكاسلت، فاصطادها الصيادان بسهولة.</p>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      <!-- SLIDE 5: ENDING COMPARISON -->
-      <section class="slide" id="slide5">
-        <div class="slide-header">
-          <span class="slide-tag">النتيجة والخاتمة</span>
-          <h2 class="slide-title">نهاية القصة المقارنة</h2>
-        </div>
-        <div class="content-area">
-          <div class="cards-grid-2">
-            <div class="glass-card" style="border-right: 4px solid #34d399; background: rgba(52, 211, 153, 0.08);">
-              <div style="display:flex; align-items:center; gap:10px; margin-bottom:8px;">
-                <i class="fa-solid fa-circle-check" style="font-size:1.4rem; color:#34d399;"></i>
-                <strong style="font-size:1.15rem; color:#ffffff;">مصير الحكمة والتدبير (النجاة)</strong>
-              </div>
-              <p style="font-size:0.92rem; color:#e2e8f0; line-height:1.6;">
-                نجت السمكة الأولى والسمكة الثانية بفضل استخدام العقل، والسرعة في اتخاذ القرار، واللجوء للحيلة الناجحة وقت شدة الخطر.
-              </p>
-            </div>
-
-            <div class="glass-card" style="border-right: 4px solid #f43f5e; background: rgba(244, 63, 94, 0.08);">
-              <div style="display:flex; align-items:center; gap:10px; margin-bottom:8px;">
-                <i class="fa-solid fa-skull-crossbones" style="font-size:1.4rem; color:#f43f5e;"></i>
-                <strong style="font-size:1.15rem; color:#ffffff;">مصير التكاسل والإهمال (الهلاك)</strong>
-              </div>
-              <p style="font-size:0.92rem; color:#e2e8f0; line-height:1.6;">
-                كان الهلاك والوقوع في الشباك مصير السمكة الثالثة بسبب الاستهانة بالخطر، وتأجيل العمل، والقعود عن البحث عن حيلة.
-              </p>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      <!-- SLIDE 6: Q&A ANALYSIS -->
-      <section class="slide" id="slide6">
-        <div class="slide-header">
-          <span class="slide-tag">المهمة الثالثة (5%)</span>
-          <h2 class="slide-title">العرض والتحليل (الإجابة عن الأسئلة)</h2>
-        </div>
-        <div class="content-area">
-          <div class="qa-grid">
-            <div class="glass-card qa-card">
-              <div class="qa-q"><i class="fa-solid fa-circle-question"></i> 1. من الشخصيات الرئيسة؟</div>
-              <div class="qa-a">الصيادان والسمكات الثلاث: (أكيس منها، كيسة، عاجزة).</div>
-            </div>
-
-            <div class="glass-card qa-card">
-              <div class="qa-q"><i class="fa-solid fa-circle-question"></i> 2. ما المشكلة التي واجهتها؟</div>
-              <div class="qa-a">طمع الصيادين في صيد السمكات من الغدير وتحديد موعد للصيد.</div>
-            </div>
-
-            <div class="glass-card qa-card">
-              <div class="qa-q"><i class="fa-solid fa-circle-question"></i> 3. كيف تطورت الأحداث؟</div>
-              <div class="qa-a">بين الحزم والهروب المبكر، والذكاء واستخدام الحيلة، والكسل المودي للهلاك.</div>
-            </div>
-
-            <div class="glass-card qa-card">
-              <div class="qa-q"><i class="fa-solid fa-circle-question"></i> 4. ما نهاية القصة؟</div>
-              <div class="qa-a">نجاة السمكتين العاقلتين وصيد السمكة الثالثة المهملة.</div>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      <!-- SLIDE 7: MORAL LESSONS & THANKS -->
-      <section class="slide" id="slide7">
-        <div class="slide-header">
-          <span class="slide-tag">الخلاصة والقيم</span>
-          <h2 class="slide-title">ماذا تعلمنا من القصة؟</h2>
-        </div>
-        <div class="content-area">
-          <div class="cards-grid-2">
-            <div class="glass-card" style="display:flex; gap:12px; align-items:flex-start;">
-              <i class="fa-solid fa-clock-rotate-left" style="font-size:1.3rem; color:#38bdf8;"></i>
-              <div>
-                <strong style="color:#ffffff;">الاستعداد المسبق:</strong>
-                <p style="font-size:0.88rem; color:#cbd5e1;">التجهيز للأمور قبل وقوعها والوقاية خير من العلاج.</p>
-              </div>
-            </div>
-
-            <div class="glass-card" style="display:flex; gap:12px; align-items:flex-start;">
-              <i class="fa-solid fa-brain" style="font-size:1.3rem; color:#fbbf24;"></i>
-              <div>
-                <strong style="color:#ffffff;">إعمال العقل والتفكير:</strong>
-                <p style="font-size:0.88rem; color:#cbd5e1;">العقل هو المنجي من الأزمات، والتغافل يوقع في المخاطر.</p>
-              </div>
-            </div>
-          </div>
-
-          <div class="glass-card" style="text-align:center; padding:18px; background:linear-gradient(135deg, rgba(56,189,248,0.15), rgba(30,58,138,0.3)); border-color:rgba(56,189,248,0.4);">
-            <h3 style="color:#ffffff; font-size:1.3rem; margin-bottom:4px;">شكراً لحسن استماعكم ومتابعتكم!</h3>
-            <p style="color:#38bdf8; font-size:0.95rem; font-weight:700;">جاهز لمناقشة أسئلة المعلمة والزملاء حول القصة | أحمد رامي</p>
-          </div>
-        </div>
-      </section>
-
-    </main>
-
-    <!-- Bottom Controls -->
-    <footer class="bottom-bar">
-      <button class="nav-btn" id="prevBtn" onclick="navigate(-1)">
-        <i class="fa-solid fa-arrow-right"></i>
-        السابق
-      </button>
-
-      <span class="slide-indicator" id="slideIndicator">الشريحة 1 من 7</span>
-
-      <button class="nav-btn" id="nextBtn" onclick="navigate(1)">
-        التالي
-        <i class="fa-solid fa-arrow-left"></i>
-      </button>
-    </footer>
-  </div>
-
-  <script>
-    let currentSlide = 0;
-    const slides = document.querySelectorAll('.slide');
-    const totalSlides = slides.length;
-    const prevBtn = document.getElementById('prevBtn');
-    const nextBtn = document.getElementById('nextBtn');
-    const slideIndicator = document.getElementById('slideIndicator');
-    const progressFill = document.getElementById('progressFill');
-
-    function updatePresentation() {
-      slides.forEach((slide, idx) => {
-        slide.classList.toggle('active', idx === currentSlide);
-      });
-
-      // Update counter and progress fill
-      slideIndicator.textContent = `الشريحة ${currentSlide + 1} من ${totalSlides}`;
-      progressFill.style.width = `${((currentSlide + 1) / totalSlides) * 100}%`;
-
-      // Disable/Enable buttons
-      prevBtn.disabled = (currentSlide === 0);
-      nextBtn.disabled = (currentSlide === totalSlides - 1);
-    }
-
-    function navigate(direction) {
-      currentSlide += direction;
-      if (currentSlide < 0) currentSlide = 0;
-      if (currentSlide >= totalSlides) currentSlide = totalSlides - 1;
-      updatePresentation();
-    }
-
-    // Keyboard Arrow Controls
-    document.addEventListener('keydown', (e) => {
-      if (e.key === 'ArrowLeft') {
-        navigate(1); // RTL Next
-      } else if (e.key === 'ArrowRight') {
-        navigate(-1); // RTL Prev
-      }
-    });
-
-    // Touch Swipe Support
-    let touchStartX = 0;
-    document.addEventListener('touchstart', (e) => touchStartX = e.touches[0].clientX);
-    document.addEventListener('touchend', (e) => {
-      let touchEndX = e.changedTouches[0].clientX;
-      if (touchStartX - touchEndX > 50) navigate(1);
-      if (touchEndX - touchStartX > 50) navigate(-1);
-    });
-
-    // Initialize
-    updatePresentation();
-  </script>
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'ArrowRight') {
+                changeSlide(-1);
+            } else if (e.key === 'ArrowLeft') {
+                changeSlide(1);
+            }
+        });
+    </script>
 </body>
 </html>
-
