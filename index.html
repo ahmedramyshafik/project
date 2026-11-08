@@ -4,7 +4,6 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>رواية السمكات الثلاث - أحمد رامي</title>
-    <!-- Favicon updated to match your image.png -->
     <link rel="icon" type="image/png" href="favicon.png">
     
     <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;500;700;800;900&display=swap" rel="stylesheet">
@@ -55,7 +54,7 @@
 
         .progress-bar-fill {
             height: 100%;
-            width: 12.5%;
+            width: 14.28%;
             background: linear-gradient(90deg, #38bdf8, #818cf8);
             transition: width 0.4s cubic-bezier(0.4, 0, 0.2, 1);
         }
@@ -122,7 +121,6 @@
             text-align: center;
         }
 
-        /* Hero Slide */
         .hero-slide {
             text-align: center;
             align-items: center;
@@ -167,7 +165,6 @@
             font-weight: 600;
         }
 
-        /* Summary Slide */
         .quote-box {
             background: rgba(15, 23, 42, 0.6);
             border: 1px solid rgba(56, 189, 248, 0.3);
@@ -182,7 +179,6 @@
             box-shadow: inset 0 2px 4px rgba(0,0,0,0.2);
         }
 
-        /* Cards Grid */
         .grid-3 {
             display: grid;
             grid-template-columns: repeat(3, 1fr);
@@ -232,7 +228,6 @@
             font-size: 1.15rem;
         }
 
-        /* Timeline Layout */
         .events-list {
             display: flex;
             flex-direction: column;
@@ -269,7 +264,6 @@
             line-height: 1.5;
         }
 
-        /* QA Grid */
         .qa-grid {
             display: grid;
             grid-template-columns: 1fr 1fr;
@@ -296,7 +290,6 @@
             line-height: 1.5;
         }
 
-        /* Values Grid */
         .values-grid {
             display: grid;
             grid-template-columns: 1fr 1fr;
@@ -312,40 +305,6 @@
             font-size: 1.05rem;
             line-height: 1.5;
             font-weight: 600;
-        }
-
-        /* Photo & AI Link Slide */
-        .ai-slide-content {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            gap: 20px;
-        }
-
-        .ai-photo {
-            width: 160px;
-            height: 160px;
-            border-radius: 50%;
-            object-fit: cover;
-            border: 4px solid #38bdf8;
-            box-shadow: 0 0 25px rgba(56, 189, 248, 0.3);
-        }
-
-        .ai-link {
-            font-size: 2.5rem;
-            font-weight: 900;
-            color: #38bdf8;
-            text-decoration: none;
-            background: linear-gradient(90deg, #38bdf8, #818cf8);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            transition: transform 0.2s ease, opacity 0.2s ease;
-        }
-
-        .ai-link:hover {
-            transform: scale(1.05);
-            opacity: 0.9;
         }
 
         .bottom-bar {
@@ -418,7 +377,6 @@
         </div>
 
         <div class="slides-viewport">
-            <!-- Slide 1: Cover -->
             <div class="slide hero-slide active">
                 <div class="hero-subtitle">مشروع قراءة ورواية</div>
                 <h1 class="hero-title">رواية "السمكات الثلاث"</h1>
@@ -429,7 +387,6 @@
                 </div>
             </div>
 
-            <!-- Slide 2: Summary -->
             <div class="slide">
                 <h2 class="slide-title">ملخص الرواية</h2>
                 <div class="quote-box">
@@ -437,7 +394,6 @@
                 </div>
             </div>
 
-            <!-- Slide 3: Characters & Problem -->
             <div class="slide">
                 <h2 class="slide-title">الشخصيات والمشكلة الرئيسة</h2>
                 <div class="grid-3">
@@ -460,7 +416,6 @@
                 </div>
             </div>
 
-            <!-- Slide 4: Events Development -->
             <div class="slide">
                 <h2 class="slide-title">تطور الأحداث</h2>
                 <div class="events-list">
@@ -483,7 +438,6 @@
                 </div>
             </div>
 
-            <!-- Slide 5: Ending -->
             <div class="slide">
                 <h2 class="slide-title">نهاية القصة</h2>
                 <div class="qa-grid" style="grid-template-columns: 1fr 1fr; gap: 20px;">
@@ -498,7 +452,6 @@
                 </div>
             </div>
 
-            <!-- Slide 6: Analysis Questions -->
             <div class="slide">
                 <h2 class="slide-title">تحليل العرض والأسئلة</h2>
                 <div class="qa-grid">
@@ -521,7 +474,6 @@
                 </div>
             </div>
 
-            <!-- Slide 7: Moral Values -->
             <div class="slide">
                 <h2 class="slide-title">القيم والدروس المستفادة</h2>
                 <div class="values-grid">
@@ -532,12 +484,10 @@
                 </div>
             </div>
 
-            <!-- Slide 8: Photo & Ahmed AI Link -->
-            <div class="slide">
-                <div class="ai-slide-content">
-                    <img src="favicon.png" alt="Ahmed AI Photo" class="ai-photo">
-                    <a href="https://ahmedramyshafik.github.io/a/" target="_blank" class="ai-link">Ahmed AI</a>
-                </div>
+            <div class="slide hero-slide">
+                <img src="image.png" alt="Ahmed AI" style="width: 120px; height: 120px; border-radius: 50%; object-fit: cover; margin-bottom: 20px; border: 3px solid #38bdf8; box-shadow: 0 10px 25px rgba(56, 189, 248, 0.3);">
+                <h2 style="font-size: 2.2rem; margin-bottom: 15px;"><a href="https://ahmedramyshafik.github.io/a/" target="_blank" style="color: #38bdf8; text-decoration: none; border-bottom: 2px dashed #38bdf8; padding-bottom: 4px;">Ahmed AI</a></h2>
+                <p style="font-size: 1.4rem; color: #cbd5e1; margin-top: 10px; font-weight: 700;">?Thanks for listening, any questions</p>
             </div>
         </div>
 
